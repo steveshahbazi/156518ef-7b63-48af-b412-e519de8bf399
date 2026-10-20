@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/IncreasingSequence.Console/IncreasingSequence.Console.csproj" />
+    <Project Path="src/IncreasingSequence.Core/IncreasingSequence.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/IncreasingSequence.Tests/IncreasingSequence.Tests.csproj" />
+  </Folder>
+</Solution>
