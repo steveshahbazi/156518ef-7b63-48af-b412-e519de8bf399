@@ -15,16 +15,16 @@ permissions:
 
 jobs:
   build-and-test:
-    name: Build, Lint and Test
+    name: Build, Lint, Test and Coverage
     runs-on: ubuntu-latest
 
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
+      - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
@@ -45,9 +45,33 @@ jobs:
           --no-restore
           --verbosity normal
 
-      - name: Run unit tests
+      - name: Run tests with coverage
         run: >
           dotnet test IncreasingSequence.slnx
           --configuration Release
           --no-restore
+          --collect:"XPlat Code Coverage"
           --logger "console;verbosity=normal"
+
+      - name: Restore .NET tools
+        run: dotnet tool restore
+
+      - name: Generate coverage report
+        run: >
+          dotnet tool run reportgenerator --
+          -reports:"tests/IncreasingSequence.Tests/TestResults/**/coverage.cobertura.xml"
+          -targetdir:"coverage-report"
+          -reporttypes:"Html;TextSummary"
+          -assemblyfilters:"+IncreasingSequence.Core"
+
+      - name: Display coverage summary
+        run: cat coverage-report/Summary.txt
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: coverage-report/
+          if-no-files-found: warn
+          retention-days: 30

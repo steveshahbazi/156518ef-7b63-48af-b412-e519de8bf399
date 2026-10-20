@@ -102,3 +102,48 @@ echo "6 1 5 9 2" | docker run --rm -i increasing-sequence:latest
 
 Invalid input is reported through standard error, and the
 container exits with a nonzero status code.
+
+
+
+## Code Coverage
+
+Code coverage is collected using Coverlet and reported using
+ReportGenerator.
+
+Coverage reports include line and branch coverage for the
+core application logic.
+
+### Collect Coverage
+
+```bash
+dotnet test IncreasingSequence.slnx \
+  --configuration Release \
+  --collect:"XPlat Code Coverage"
+```
+
+### Generate HTML Report
+
+Restore the reporting tool:
+
+```bash
+dotnet tool restore
+```
+
+Generate the report:
+
+```bash
+dotnet tool run reportgenerator -- \
+  -reports:"tests/IncreasingSequence.Tests/TestResults/**/coverage.cobertura.xml" \
+  -targetdir:"coverage-report" \
+  -reporttypes:"Html;TextSummary" \
+  -assemblyfilters:"+IncreasingSequence.Core"
+```
+
+Open `coverage-report/index.html` in a browser.
+
+### GitHub Actions
+
+Every push and pull request runs the automated test suite,
+collects code coverage and generates a downloadable HTML report.
+
+The report is available under the workflow run's Artifacts section.
