@@ -1,4 +1,4 @@
-﻿
+
 using IncreasingSequence.Core;
 
 namespace IncreasingSequence.Tests;
