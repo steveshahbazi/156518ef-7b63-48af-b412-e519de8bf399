@@ -22,4 +22,9 @@
     <ProjectReference Include="..\..\src\IncreasingSequence.Core\IncreasingSequence.Core.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Update="TestData\**\*.txt"
+			  CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
 </Project>
