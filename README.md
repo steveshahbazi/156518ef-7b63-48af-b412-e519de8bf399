@@ -63,3 +63,42 @@ sequence is returned.
 
 Invalid input produces an error message on standard error and
 returns a non-zero exit code.
+
+
+## Docker
+
+The application can be built and executed using Docker.
+
+A multi-stage Dockerfile is used to separate compilation from
+runtime execution.
+
+The final container runs as a non-root user.
+
+### Build the Image
+
+```bash
+docker build -t increasing-sequence:latest .
+```
+
+### Run with Command-Line Input
+
+```bash
+docker run --rm increasing-sequence:latest "6 1 5 9 2"
+```
+
+Expected output:
+
+```text
+1 5 9
+```
+
+### Run with Standard Input
+
+```bash
+echo "6 1 5 9 2" | docker run --rm -i increasing-sequence:latest
+```
+
+### Error Handling
+
+Invalid input is reported through standard error, and the
+container exits with a nonzero status code.

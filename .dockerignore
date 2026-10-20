@@ -1,0 +1,29 @@
+
+# Git metadata
+.git
+.github
+
+# Build outputs
+**/bin/
+**/obj/
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+
+# Test results
+**/TestResults/
+**/coverage/
+
+# Local files
+*.user
+*.suo
+*.log
+
+# Documentation
+README.md
+
+# Docker configuration
+Dockerfile
+.dockerignore
