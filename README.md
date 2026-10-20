@@ -1,3 +1,4 @@
+[![.NET CI](https://github.com/steveshahbazi/UUID/actions/workflows/ci.yml/badge.svg)](https://github.com/steveshahbazi/UUID/actions/workflows/ci.yml)
 
 ## Running the Application
 
